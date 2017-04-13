@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+    <resources>
+        <color name="colorPrimary">#3F51B5</color>
+        <color name="colorPrimaryDark">#303F9F</color>
+        <color name="colorAccent">#FF4081</color>
+        <!-- 灰白色(界面背景色)(所有界面背景色都是这个) -->
+        <color name="default_bg">#eceef1</color>
+        <!-- 淡黑(对话框标题) -->
+        <color name="black_333333">#333333</color>
+        <!-- 灰色色值 -->
+        <color name="gray_888888">#888888</color>
+        <!-- 灰色色值 -->
+        <color name="gray_1990c0">#1990c0</color>
+        <!-- 灰色色值 -->
+        <color name="gray_949494">#949494</color>
+        <!-- 灰色色值 -->
+        <color name="gray_dddddd">#dddddd</color>
+        <!-- 灰色色值 -->
+        <color name="blue_4ea0fc">#4ea0fc</color>
+        <!-- 灰色色值 -->
+        <color name="blue_4ac3fb">#4ac3fb</color>
+        <!-- 灰色色值 -->
+        <color name="blue_fa7373">#fa7373</color>
+        <!-- 灰色色值 -->
+        <color name="blue_ffb832">#ffb832</color>
+        <!-- 灰色色值 -->
+        <color name="gray_c0e7f6">#c0e7f6</color>
+        <!-- 灰色色值 -->
+        <color name="gray_f3f3f3">#f3f3f3</color>
+        <!-- 灰色色值 -->
+        <color name="gray_f6f6f6">#f6f6f6</color>
+        <!-- 灰色色值 -->
+        <color name="gray_ecedf1">#ecedf1</color>
+        <!-- 灰色色值 -->
+        <color name="gray_dcdcdc">#dcdcdc</color>
+        <!-- 灰色色值 -->
+        <color name="gray_696969">#696969</color>
+        <!-- 纯黑色 -->
+        <color name="black_000000">#000000</color>
+        <!-- 纯白色 -->
+        <color name="white_ffffff">#ffffff</color>
+        <!-- 白背景色 -->
+        <color name="white_f0f1f1">#f0f1f1</color>
+        <!-- 天蓝色 -->
+        <color name="blue_009be0">#009be0</color>
+        <!-- 白灰，头部，底部，标题栏颜色 -->
+        <color name="gray_f9f9f9">#f9f9f9</color>
+        <!-- 灰色，辅助文字颜色 -->
+        <color name="gray_939598">#939598</color>
+        <color name="gray_divide_line">#d6d6d6</color>
+        <!-- 灰色，辅助文字颜色 -->
+        <color name="red_ff0000">#ff0000</color>
+        <!-- 透明 -->
+        <color name="transparent">#00000000</color>
+        <!-- 透明 -->
+        <color name="black_80000000">#80000000</color>
+        <!-- 透明 -->
+        <color name="black_20000000">#20000000</color>
+        <!-- 透明 -->
+        <color name="black_40000000">#40000000</color>
+        <!-- 浅灰色 -->
+        <color name="gray_cccccc">#cccccc</color>
+        <!-- 浅灰色 -->
+        <color name="gray_080A14">#080A14</color>
+        <!-- 浅灰色 -->
+        <color name="gray_0B0E19">#0B0E19</color>
+        <!-- 浅灰色 -->
+        <color name="gray_1282BC">#1282BC</color>
+        <!-- 浅灰色 -->
+        <color name="gray_0e3854">#0e3854</color>
+        <!-- 浅灰色 -->
+        <color name="gray_3e8ea5">#3e8ea5</color>
+        <!-- 浅绿 -->
+        <color name="green_a9de72">#a9de72</color>
+        <!-- 浅绿 -->
+        <color name="green_00ff00">#00ff00</color>
+        <!-- 浅绿 -->
+        <color name="green_12b7f5">#12b7f5</color>
+        <!-- 浅绿 -->
+        <color name="green_11684b">#11684b</color>
+        <!-- 浅红 -->
+        <color name="red_ff5569">#ff5569</color>
+        <!-- 浅红 -->
+        <color name="red_e41717">#e41717</color>
+        <!-- 浅红 -->
+        <color name="red_ff6631">#ff6631</color>
+        <!-- 浅红 -->
+        <color name="red_ffab0a">#ffab0a</color>
+        <!-- 浅红 -->
+        <color name="red_fa6e51">#fa6e51</color>
+        <!-- 浅红 -->
+        <color name="red_e70314">#e70314</color>
+        <!-- 浅蓝 -->
+        <color name="blue_3abcfa">#3abcfa</color>
+        <!-- 浅蓝 -->
+        <color name="blue_ffb156">#ffb156</color>
+        <!-- 浅蓝 -->
+        <color name="gray_d0d0d0">#d0d0d0</color>
+        <!-- 浅蓝 -->
+        <color name="gray_d4d4d4">#d4d4d4</color>
+
+    </resources>

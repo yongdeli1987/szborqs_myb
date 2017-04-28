@@ -1,0 +1,54 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white_f0f1f1"
+    android:orientation="vertical">
+<LinearLayout
+    android:orientation="horizontal"
+    android:background="@color/default_bg"
+    android:padding="3dp"
+    android:gravity="center_vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+<RelativeLayout
+    android:layout_margin="3dp"
+    android:layout_width="0dp"
+    android:layout_weight="1"
+    android:layout_height="wrap_content"
+    android:background="@drawable/login_form_bg"
+    android:padding="5dp">
+    <ImageView
+        android:id="@+id/searchImg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="5dp"
+        android:layout_centerVertical="true"
+        android:src="@mipmap/ic_user_search" />
+    <EditText
+        android:id="@+id/keywordsEdit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:padding="5dp"
+        android:layout_toRightOf="@+id/searchImg"
+        android:background="@null"
+        android:hint="@string/keywords_hint"
+        android:textColor="@color/dialog_title_black"
+        android:textColorHint="@color/gray_888888"
+        android:textSize="15sp" />
+</RelativeLayout>
+    <TextView
+        android:id="@+id/rightText"
+        android:text="@string/search"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingBottom="10dp"
+        android:paddingLeft="8dp"
+        android:paddingRight="15dp"
+        android:paddingTop="10dp"
+        android:textColor="@color/dialog_title_black"
+        android:textSize="15sp" />
+</LinearLayout>
+<View  style="@style/line_dividing_gray_horizontal_style"/>
+</LinearLayout>

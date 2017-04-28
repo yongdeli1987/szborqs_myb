@@ -7,6 +7,8 @@
         <color name="default_bg">#eceef1</color>
         <!-- 淡黑(对话框标题) -->
         <color name="black_333333">#333333</color>
+    <!-- 淡黑(对话框标题) -->
+    <color name="dialog_title_black">#333333</color>
         <!-- 灰色色值 -->
         <color name="gray_888888">#888888</color>
         <!-- 灰色色值 -->

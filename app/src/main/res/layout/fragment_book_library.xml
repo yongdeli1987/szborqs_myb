@@ -4,10 +4,67 @@
     android:layout_height="match_parent"
     android:background="@color/default_bg"
     android:orientation="vertical">
-<TextView
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:text="@string/book_library"
-    />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="@color/white_ffffff"
+        >
+        <RelativeLayout
+            android:id="@+id/bookTypeLayout"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="50dp">
+            <TextView
+                android:id="@+id/bookTypeText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:textSize="16sp"
+                android:textColor="@color/dialog_title_black"
+                android:text="@string/book_type"
+                />
+            <View
+                android:id="@+id/bookTypeLine"
+                android:layout_alignParentBottom="true"
+                android:layout_width="60dp"
+                android:layout_height="1.5dp"
+                android:layout_centerHorizontal="true"
+                android:background="@color/blue_009be0"
+                />
+        </RelativeLayout>
+        <RelativeLayout
+            android:id="@+id/searchLayout"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="50dp">
+            <TextView
+                android:id="@+id/searchText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:layout_centerInParent="true"
+                android:textColor="@color/dialog_title_black"
+                android:text="@string/search"
+                />
+            <View
+                android:id="@+id/searchLine"
+                android:layout_alignParentBottom="true"
+                android:layout_width="60dp"
+                android:layout_height="1.5dp"
+                android:layout_centerHorizontal="true"
+                android:background="@color/blue_009be0"
+                />
+        </RelativeLayout>
+    </LinearLayout>
+    <View  style="@style/line_dividing_gray_horizontal_style"/>
+    <android.support.v4.view.ViewPager
+        android:id="@+id/mViewPager"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1.0"
+        android:background="@color/white_ffffff"
+        android:flipInterval="30"
+        android:persistentDrawingCache="animation" />
 
 </LinearLayout>

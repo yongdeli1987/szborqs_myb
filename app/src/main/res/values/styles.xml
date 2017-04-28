@@ -44,4 +44,60 @@
         <item name="android:textColor">@drawable/main_bottom_textview_textcolor_selector</item>
         <item name="android:textSize">12sp</item>
     </style>
+    <!-- 常用相对布局样式 -->
+    <style name="first_relativelayout_style">
+        <item name="android:background">@drawable/news_background_selector</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:paddingLeft">22dp</item>
+        <item name="android:paddingRight">12dp</item>
+        <item name="android:layout_height">48dp</item>
+    </style>
+    <!-- 常用相对布局样式 -->
+    <style name="first_relativelayout_no_background_style">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:paddingLeft">22dp</item>
+        <item name="android:paddingRight">12dp</item>
+        <item name="android:layout_height">48dp</item>
+    </style>
+    <!-- 常用相对布局样式 -->
+    <style name="second_relativelayout_style">
+        <item name="android:background">@drawable/news_background_selector</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:paddingLeft">22dp</item>
+        <item name="android:paddingRight">12dp</item>
+        <item name="android:layout_height">64dp</item>
+    </style>
+    <!-- 常用线性布局样式 -->
+    <style name="first_linearlayout_style">
+        <item name="android:background">@drawable/news_background_selector</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:orientation">horizontal</item>
+        <item name="android:paddingLeft">22dp</item>
+        <item name="android:paddingRight">12dp</item>
+        <item name="android:layout_height">48dp</item>
+    </style>
+    <!-- 常用线性布局样式 -->
+    <style name="second_linearlayout_style">
+        <item name="android:background">@drawable/news_background_selector</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:orientation">horizontal</item>
+        <item name="android:paddingLeft">22dp</item>
+        <item name="android:paddingRight">12dp</item>
+        <item name="android:layout_height">64dp</item>
+    </style>
+    <!-- 无数据显示textview样式 -->
+    <style name="no_data_textview_style">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:gravity">center_horizontal</item>
+        <item name="android:drawablePadding">8dp</item>
+        <item name="android:drawableTop">@mipmap/ic_no_data</item>
+        <item name="android:textSize">17sp</item>
+        <item name="android:textColor">@color/gray_939598</item>
+        <item name="android:visibility">gone</item>
+        <item name="android:layout_centerInParent">true</item>
+        <item name="android:text">@string/no_data_show</item>
+    </style>
 </resources>

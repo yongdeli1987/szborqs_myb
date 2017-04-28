@@ -19,6 +19,8 @@ public class LocalPreference {
 
     private static final String TEXT_SIZE="text_size";
 
+    private static final String BOOK_TYPE_JSON="book_type_json";
+
     private static SharedPreferences getInstance(){
         if(mSharedPreferences==null){
             mSharedPreferences=MyApplication.getInstance().getSharedPreferences("mybook", Context.MODE_PRIVATE);
@@ -31,6 +33,12 @@ public class LocalPreference {
     }
     public static int getTextSize(){
         return getInstance().getInt(TEXT_SIZE,-1);
+    }
+    public static void putBookTypeJson(String param){
+        getInstance().edit().putString(BOOK_TYPE_JSON,param).commit();
+    }
+    public static String getBookTypeJson(){
+        return getInstance().getString(BOOK_TYPE_JSON,"");
     }
 
 }

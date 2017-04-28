@@ -46,6 +46,7 @@ public class BookLibraryFragment extends BaseFragment {
     private int currentTemp = -1;
     private TypeFragment typeFragment;
     private SearchFragment searchFragment;
+    private SortFragment sortFragment;
 
     private View.OnClickListener onClickListener = new View.OnClickListener() {
         @Override
@@ -77,33 +78,39 @@ public class BookLibraryFragment extends BaseFragment {
 
     private void initMyView(View view) {
         initTitle(view);
-        lines=new View[2];
+        lines=new View[3];
         lines[0] = view.findViewById(R.id.bookTypeLine);
-        lines[1] = view.findViewById(R.id.searchLine);
-        textViews=new TextView[2];
+        lines[1] = view.findViewById(R.id.sortLine);
+        lines[2] = view.findViewById(R.id.searchLine);
+        textViews=new TextView[3];
         textViews[0] = (TextView)view.findViewById(R.id.bookTypeText);
-        textViews[1] = (TextView)view.findViewById(R.id.searchText);
-        relativeLayouts=new RelativeLayout[2];
+        textViews[1] = (TextView)view.findViewById(R.id.sortText);
+        textViews[2] = (TextView)view.findViewById(R.id.searchText);
+        relativeLayouts=new RelativeLayout[3];
         relativeLayouts[0] = (RelativeLayout) view.findViewById(R.id.bookTypeLayout);
-        relativeLayouts[1] = (RelativeLayout) view.findViewById(R.id.searchLayout);
+        relativeLayouts[1] = (RelativeLayout) view.findViewById(R.id.sortLayout);
+        relativeLayouts[2] = (RelativeLayout) view.findViewById(R.id.searchLayout);
         relativeLayouts[0].setOnClickListener(onClickListener);
         relativeLayouts[1].setOnClickListener(onClickListener);
+        relativeLayouts[2].setOnClickListener(onClickListener);
         mViewPager = (ViewPager) view.findViewById(R.id.mViewPager);
         fragmentsList = new ArrayList<Fragment>();
         mViewPager.setAdapter(new ResourceMainPagerAdapter(
                 mActivity.getSupportFragmentManager(), fragmentsList));
         setFocus(0);
         // 多缓存一个页面
-        mViewPager.setOffscreenPageLimit(1);
+        mViewPager.setOffscreenPageLimit(2);
         mViewPager.setOnPageChangeListener(new MainOnPageChangeListener());
         initFragment();
     }
 
     private void initFragment() {
             typeFragment = new TypeFragment();
+            sortFragment = new SortFragment();
             searchFragment = new SearchFragment();
 
             fragmentsList.add(typeFragment);
+            fragmentsList.add(sortFragment);
             fragmentsList.add(searchFragment);
 
             mViewPager.getAdapter().notifyDataSetChanged();

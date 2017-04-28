@@ -6,6 +6,7 @@
     <string name="loading">加载中...</string>
     <string name="book_type">分类</string>
     <string name="search">搜索</string>
+    <string name="book_sort">排行</string>
     <string name="keywords_hint">请输入搜索关键字</string>
     <string name="pull_to_refreshing">下拉刷新</string>
     <string name="last_update">最后更新</string>

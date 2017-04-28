@@ -34,6 +34,29 @@
                 />
         </RelativeLayout>
         <RelativeLayout
+            android:id="@+id/sortLayout"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="50dp">
+            <TextView
+                android:id="@+id/sortText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:layout_centerInParent="true"
+                android:textColor="@color/dialog_title_black"
+                android:text="@string/book_sort"
+                />
+            <View
+                android:id="@+id/sortLine"
+                android:layout_alignParentBottom="true"
+                android:layout_width="60dp"
+                android:layout_height="1.5dp"
+                android:layout_centerHorizontal="true"
+                android:background="@color/blue_009be0"
+                />
+        </RelativeLayout>
+        <RelativeLayout
             android:id="@+id/searchLayout"
             android:layout_width="0dp"
             android:layout_weight="1"

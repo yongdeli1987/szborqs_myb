@@ -1,10 +1,12 @@
 package com.szborqs.mybook.main.library.view;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 
 import com.szborqs.mybook.BaseFragment;
 import com.szborqs.mybook.BaseItem;
@@ -71,6 +73,19 @@ public class TypeFragment extends BaseFragment {
         mAdapter=new BookTypeListAdapter(mActivity);
         mAdapter.setList(bookTypeList);
         mListview.setAdapter(mAdapter);
+        mListview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                if(position>0){
+                    BookTypeItem item=  (BookTypeItem)bookTypeList.get(position-1);
+                    Intent intent=new Intent();
+                    intent.setClass(mActivity,BookListActivity.class);
+                    intent.putExtra("bookType",item.getCode());
+                    startActivity(intent);
+                }
+
+            }
+        });
         getListData();
     }
 

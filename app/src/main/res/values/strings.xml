@@ -14,4 +14,5 @@
     <string name="cancel_refresh">下拉可以刷新</string>
     <string name="last_updata">上次更新： </string>
     <string name="no_data_show">没有数据显示</string>
+    <string name="book_author">作者：</string>
 </resources>

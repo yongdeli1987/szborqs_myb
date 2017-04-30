@@ -46,5 +46,9 @@ public class SharedMethod {
         return result;
     }
 
+    public static boolean isEmptyString(String param){
+        return param==null ||param.equals("");
+    }
+
 
 }

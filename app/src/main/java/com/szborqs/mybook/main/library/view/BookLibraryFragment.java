@@ -55,8 +55,11 @@ public class BookLibraryFragment extends BaseFragment {
                 case R.id.bookTypeLayout://返回
                     setFocus(0);
                     break;
-                case R.id.searchLayout://返回
+                case R.id.sortLayout://返回
                     setFocus(1);
+                    break;
+                case R.id.searchLayout://返回
+                    setFocus(2);
                     break;
             }
         }

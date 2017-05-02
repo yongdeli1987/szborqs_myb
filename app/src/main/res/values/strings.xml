@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">HelloBook</string>
+    <string name="app_name">蜜蜂读书</string>
     <string name="book_shelf">书架</string>
     <string name="book_library">书库</string>
     <string name="me">我</string>

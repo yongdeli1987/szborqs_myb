@@ -1,5 +1,7 @@
 apply plugin: 'com.android.application'
-
+def releaseTime() {
+    return new Date().format("yyyyMMdd", TimeZone.getTimeZone("UTC"))
+}
 android {
     compileSdkVersion 21
     buildToolsVersion '21.1.2'
@@ -16,7 +18,25 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    android.applicationVariants.all { variant ->
+        variant.outputs.each { output ->
+            def outputFile = output.outputFile
+            if (outputFile != null && outputFile.name.endsWith('.apk')) {
+                def marketName
+                variant.productFlavors.each { product ->
+                    marketName = product.name
+                }
+                //这里修改apk文件名
+                def fileName = "mybook-v${android.defaultConfig.versionName}-${releaseTime()}-${marketName}.apk"
+                output.outputFile = new File(outputFile.parent, fileName)
+            }
+        }
+    }
     productFlavors {
+        allMarket {}
+    }
+    productFlavors.all { flavor ->
+        flavor.manifestPlaceholders = [MARKET_CHANNEL_VALUE: name]
     }
 }
 

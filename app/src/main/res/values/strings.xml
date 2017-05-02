@@ -15,4 +15,10 @@
     <string name="last_updata">上次更新： </string>
     <string name="no_data_show">没有数据显示</string>
     <string name="book_author">作者：</string>
+    <string name="update_status">更新状态：</string>
+    <string name="last_chapter">最新章节：</string>
+    <string name="chapter_list">章节目录</string>
+    <string name="add_book">添加</string>
+    <string name="read_book">阅读</string>
+    <string name="description">简介</string>
 </resources>

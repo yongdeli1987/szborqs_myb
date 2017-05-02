@@ -4,6 +4,8 @@ import com.szborqs.mybook.BaseItem;
 
 import org.json.JSONObject;
 
+import java.io.Serializable;
+
 /**
  * description
  *
@@ -11,7 +13,7 @@ import org.json.JSONObject;
  * @Time 2017/4/28 18:55
  */
 
-public class OnlineBookItem implements BaseItem {
+public class OnlineBookItem implements BaseItem,Serializable {
 
     private String author;
     private String name;

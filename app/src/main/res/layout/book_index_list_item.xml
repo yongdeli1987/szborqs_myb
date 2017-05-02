@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:descendantFocusability="blocksDescendants"
+    android:orientation="vertical">
+
+    <LinearLayout   style="@style/first_linearlayout_style">
+
+        <View
+            android:id="@+id/tagView"
+            android:layout_width="8dp"
+            android:layout_height="8dp"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/book_index_bg"
+            />
+
+        <TextView
+            android:id="@+id/nameText"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:textColor="@color/dialog_title_black"
+            android:textSize="16sp" />
+        <ImageView
+            android:src="@mipmap/ic_go_arrow_gray"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            />
+    </LinearLayout>
+
+    <View style="@style/line_dividing_gray_horizontal_style" />
+</LinearLayout>

@@ -100,4 +100,16 @@
         <item name="android:layout_centerInParent">true</item>
         <item name="android:text">@string/no_data_show</item>
     </style>
+    <!-- 登录界面提交文本框样式 -->
+    <style name="login_submit_textview_style">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">46dp</item>
+        <item name="android:layout_marginLeft">20dp</item>
+        <item name="android:layout_marginRight">20dp</item>
+        <item name="android:background">@drawable/emergency_task_bg</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@color/white_ffffff</item>
+        <item name="android:textSize">15sp</item>
+    </style>
+
 </resources>

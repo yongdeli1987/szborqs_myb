@@ -9,14 +9,14 @@ import com.szborqs.mybook.BaseActivity;
 import com.szborqs.mybook.BaseItem;
 import com.szborqs.mybook.R;
 import com.szborqs.mybook.config.ActionConfigs;
-import com.szborqs.mybook.custom.RefreshListView;
+import com.szborqs.mybook.custom.PullDownLoadListView;
+import com.szborqs.mybook.main.library.adapter.BookIndexListAdapter;
 import com.szborqs.mybook.main.library.adapter.OnlineBookListAdapter;
-import com.szborqs.mybook.main.library.model.BookTypeItem;
+import com.szborqs.mybook.main.library.model.ChapterItem;
 import com.szborqs.mybook.main.library.model.OnlineBookItem;
 import com.szborqs.mybook.nohttp.CallServer;
 import com.szborqs.mybook.nohttp.HttpListener;
 import com.szborqs.mybook.util.BookLog;
-import com.szborqs.mybook.util.LocalPreference;
 import com.szborqs.mybook.util.SharedMethod;
 import com.yolanda.nohttp.NoHttp;
 import com.yolanda.nohttp.RequestMethod;
@@ -29,71 +29,44 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-public class BookListActivity extends BaseActivity {
-    private RefreshListView mListView;
-    private int pageNum = 1;
-    private String type;
-    private OnlineBookListAdapter mAdapter;
-    private List<BaseItem> bookList;
+public class BookIndexListActivity extends BaseActivity {
+    private PullDownLoadListView mListview;
+    private BookIndexListAdapter mAdapter;
+    private List<BaseItem> bookIndexList;
     private static final int GET_LIST_DATA = 100;
+    private String bookId;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_book_list);
+        setContentView(R.layout.activity_book_index_list);
         initView();
     }
 
     private void initView() {
-        type=getIntent().getStringExtra("bookType");
-        mListView=(RefreshListView)findViewById(R.id.mListview);
-        bookList=new ArrayList<BaseItem>();
-        mAdapter=new OnlineBookListAdapter(mActivity);
-        mAdapter.setList(bookList);
-        mListView.setAdapter(mAdapter);
-        mListView.setonTopRefreshListener(new RefreshListView.OnTopRefreshListener() {
-            @Override
-            public void onRefresh() {
-                pageNum=1;
-                getListData();
-            }
-        });
-        mListView.setonBottomRefreshListener(new RefreshListView.OnBottomRefreshListener() {
+        bookId=getIntent().getStringExtra("bookId");
+        mListview=(PullDownLoadListView)findViewById(R.id.mListview);
+        bookIndexList=new ArrayList<BaseItem>();
+        mAdapter=new BookIndexListAdapter(mActivity);
+        mAdapter.setList(bookIndexList);
+        mListview.setAdapter(mAdapter);
+        mListview.setonTopRefreshListener(new PullDownLoadListView.OnTopRefreshListener() {
             @Override
             public void onRefresh() {
                 getListData();
-            }
-        });
-        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                if(position>0){
-                    OnlineBookItem item=(OnlineBookItem)bookList.get(position-1);
-                    Intent i=new Intent();
-                    i.setClass(mActivity,BookDetailActivity.class);
-                    i.putExtra("bookItem",item);
-                    startActivity(i);
-                }
             }
         });
         getListData();
     }
 
     private void getListData() {
-        String url=getDownloadUrl();
-        if(SharedMethod.isEmptyString(url)){
+        if(SharedMethod.isEmptyString(bookId)){
             return;
         }
+        String url = ActionConfigs.GET_CHAPTER_LIST+bookId+"?p=1";
         Request<String> request = NoHttp.createStringRequest(url, RequestMethod.GET);
         CallServer.getRequestInstance().add(mActivity, GET_LIST_DATA, request, mHttpListener, true, true);
     }
 
-    private String getDownloadUrl(){
-        if(SharedMethod.isEmptyString(type)){
-            return null;
-        }
-        String url= ActionConfigs.GET_BOOK_LIST+type+"?p="+pageNum;
-        return url;
-    }
 
     private HttpListener<String> mHttpListener = new HttpListener<String>() {
 
@@ -116,24 +89,24 @@ public class BookListActivity extends BaseActivity {
                 case GET_LIST_DATA://获取列表数据
 
                     if(code!=404 && jsonObject!=null){
-                        if(pageNum==1){
-                            bookList.clear();
-                        }
+                        bookIndexList.clear();
                         Iterator<String> keys=jsonObject.keys();
+                        int index=0;
                         while(keys.hasNext()){
                             String key=keys.next();
                             try{
-                                JSONObject subObject=new JSONObject(jsonObject.optString(key));
-                                OnlineBookItem item=new OnlineBookItem(subObject);
-                                bookList.add(item);
+                                JSONObject subObject = jsonObject.getJSONObject(key);
+                                ChapterItem item=new ChapterItem(subObject);
+                                item.setIndex(index);
+                                bookIndexList.add(item);
                             }catch(Exception e){
                                 e.printStackTrace();
                             }
+                            index++;
                         }
                     }
                     mAdapter.notifyDataSetChanged();
-                    mListView.onRefreshComplete();
-                    pageNum++;
+                    mListview.onRefreshComplete();
                     break;
 
 
@@ -148,7 +121,7 @@ public class BookListActivity extends BaseActivity {
             }
             switch (what) {
                 case GET_LIST_DATA://获取列表数据
-                    mListView.onRefreshComplete();
+                    mListview.onRefreshComplete();
                     break;
 
             }

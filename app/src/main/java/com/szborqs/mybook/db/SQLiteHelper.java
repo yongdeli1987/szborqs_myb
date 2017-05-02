@@ -22,7 +22,9 @@ public class SQLiteHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         // 文件信息
-        db.execSQL("CREATE TABLE alarm_info  (_id INTEGER NOT NULL  PRIMARY KEY AUTOINCREMENT, content NVARCHAR,create_time VARCHAR, receive_time VARCHAR, type INTEGER, status INTEGER);");
+        db.execSQL("CREATE TABLE book_info  (_id INTEGER NOT NULL  PRIMARY KEY AUTOINCREMENT,book_id VARCHAR, book_name NVARCHAR,book_author VARCHAR, book_cover VARCHAR,is_import VARCHAR, cur_chapter_id VARCHAR,position INTEGER,create_time VARCHAR);");
+        // 文件信息
+        db.execSQL("CREATE TABLE chapter_info  (_id INTEGER NOT NULL  PRIMARY KEY AUTOINCREMENT,book_id VARCHAR, chapter_id VARCHAR,chapter_name VARCHAR,chapter_size INTEGER);");
     }
 
     @Override

@@ -36,10 +36,22 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".main.library.view.BookListActivity"
+        <activity
+            android:name=".main.library.view.BookListActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:screenOrientation="portrait"
-            ></activity>
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".main.library.view.BookDetailActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".main.library.view.BookIndexListActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait" />
+        <service
+            android:name=".service.MyService"
+            android:enabled="true"
+            android:exported="true"></service>
     </application>
 
 </manifest>

@@ -1,4 +1,5 @@
 package com.szborqs.mybook;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -8,6 +9,7 @@ import android.widget.TextView;
 import com.szborqs.mybook.main.library.view.BookLibraryFragment;
 import com.szborqs.mybook.main.me.view.MeFragment;
 import com.szborqs.mybook.main.shelf.view.BookShelfFragment;
+import com.szborqs.mybook.service.MyService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,6 +29,13 @@ public class MainActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         initView();
+        startService();
+    }
+
+    private void startService() {
+        Intent intent = new Intent();
+        intent.setClass(mActivity, MyService.class);
+        startService(intent);
     }
 
     private View.OnClickListener clickListener = new View.OnClickListener() {

@@ -1,7 +1,10 @@
 package com.szborqs.mybook.db;
 
 
+import android.content.ContentValues;
 import android.content.Context;
+
+import com.szborqs.mybook.main.library.model.MyBookItem;
 
 
 /**
@@ -11,50 +14,41 @@ import android.content.Context;
  * @Time 2017/1/16 15:46
  */
 
-public class ChatMessageManager {
-    private static ChatMessageManager chatMessageManager = null;
+public class MyBookManager {
+    private static MyBookManager myBookManager = null;
     private static DBManager manager = null;
 
-    private ChatMessageManager(Context context) {
+    private MyBookManager(Context context) {
         manager = DBManager.getInstance(context);
     }
 
-    public static ChatMessageManager getInstance(Context context) {
-        if (chatMessageManager == null) {
-            chatMessageManager = new ChatMessageManager(context);
+    public static MyBookManager getInstance(Context context) {
+        if (myBookManager == null) {
+            myBookManager = new MyBookManager(context);
         }
-        return chatMessageManager;
+        return myBookManager;
     }
 
-/*    public long saveChatMessageItem(SendMessageItem item){
+    public long saveBookItem(MyBookItem item){
         long influencesRows = -1;
         ContentValues contentValues = new ContentValues();
-        contentValues.put("msg_id", item.getMsgId());
-        contentValues.put("msg_content", item.getContent());
-        if(!SharedMethod.isEmptyString(item.getParam())){
-            contentValues.put("msg_param", item.getParam());
-        }
-        contentValues.put("msg_time", item.getTimeString());
-        contentValues.put("my_user_id", CommonPrefs.getCurentUser());
-        if(!SharedMethod.isEmptyString(item.getFriendUserId())){
-            contentValues.put("friend_id", item.getFriendUserId());
-        }
-        if(!SharedMethod.isEmptyString(item.getGroupId())){
-            contentValues.put("group_id", item.getGroupId());
-        }
-        contentValues.put("msg_category", item.getMsgCategory());
-        contentValues.put("msg_type", item.getMsgType());
-        contentValues.put("msg_status", item.getMsgStatus());
-        contentValues.put("msg_direction", item.getDirection());
+        contentValues.put("book_id", item.getBookId());
+        contentValues.put("book_name", item.getBookName());
+        contentValues.put("book_author", item.getBookAuthor());
+        contentValues.put("book_cover", item.getBookCover());
+        contentValues.put("create_time", item.getCreateTime());
+        contentValues.put("cur_chapter_id", item.getCurChapterId());
+        contentValues.put("position", item.getCurPosition());
+        contentValues.put("is_import", item.isImport()?"1":"0");
         try{
             SQLiteTemplate st=SQLiteTemplate.getInstance(manager);
-            influencesRows=st.insert("im_msg_info",contentValues);
+            influencesRows=st.insert("book_info",contentValues);
         }catch(Exception e){
             e.printStackTrace();
         }
 
         return influencesRows;
-    }*/
+    }
 
 /*    public List<SendMessageItem> getChatListByFriendId(String friendId, int pageNum, int pageSize){
         List<SendMessageItem> result=null;

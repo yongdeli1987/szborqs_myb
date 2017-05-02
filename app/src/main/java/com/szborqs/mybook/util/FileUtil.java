@@ -99,6 +99,52 @@ public class FileUtil {
         }
     }
 
+    public static String getChapterFilePath(String bookId,String chapterId){
+        if(SharedMethod.isEmptyString(bookId)||SharedMethod.isEmptyString(chapterId)){
+            return "";
+        }
+        String bookParentDir=getCachFilePath()+Constant.BOOK_DIR;
+        String bookDir=bookParentDir+bookId;
+        String chapterFilePath=bookDir+"/"+chapterId+".txt";
+        try{
+            File bookParentDirFile=new File(bookParentDir);
+            if(!bookParentDirFile.exists()){
+                bookParentDirFile.mkdir();
+            }
+
+            File bookDirFile=new File(bookDir);
+            if(!bookDirFile.exists()){
+                bookDirFile.mkdir();
+            }
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return chapterFilePath;
+    }
+
+    public static boolean isChapterFileExsit(String bookId,String chapterId){
+        String chapterFilePath=getChapterFilePath(bookId,chapterId);
+        return isFileExist(chapterFilePath);
+    }
+
+    public static void saveChapterContent(String bookId,String chapterId,String content){
+        String chapterFilePath=getChapterFilePath(bookId,chapterId);
+        try{
+            File file=new File(chapterFilePath);
+            if(file.exists()){
+                file.delete();
+            }
+            file.createNewFile();
+            FileOutputStream fos = new FileOutputStream(file);
+            fos.write(content.getBytes("gbk"));
+            fos.close();
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+
+    }
+
 
 
 }

@@ -1,6 +1,9 @@
 package com.szborqs.mybook.main.library.model;
 
+import android.content.Context;
+
 import com.szborqs.mybook.BaseItem;
+import com.szborqs.mybook.db.MyBookManager;
 
 import org.json.JSONObject;
 
@@ -38,6 +41,23 @@ public class OnlineBookItem implements BaseItem,Serializable {
             type=object.optString("booktype");
             lastChapterName=object.optString("chapternew");
             status=object.optString("status");
+        }
+
+    }
+
+    public void insertIntoDatabase(Context c){
+        try{
+            MyBookItem item=new MyBookItem();
+            item.setBookId(bookfinger);
+            item.setBookAuthor(author);
+            item.setBookCover(picUrl);
+            item.setBookName(name);
+            item.setImport(false);
+            item.setCreateTime(""+System.currentTimeMillis());
+            MyBookManager.getInstance(c).saveBookItem(item);
+
+        }catch(Exception e){
+            e.printStackTrace();
         }
 
     }

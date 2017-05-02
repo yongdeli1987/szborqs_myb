@@ -17,5 +17,9 @@ public class ActionConfigs {
      * 获取章节目录
      */
     public static final String GET_CHAPTER_LIST = "http://202.105.182.2:15000/getChapterlist/";
+    /**
+     * 获取章节目录
+     */
+    public static final String GET_CHAPTER_CONTENT = "http://202.105.182.2:15000/getChapter/";
 
 }

@@ -85,7 +85,7 @@ public class BookDetailActivity extends BaseActivity {
                 case R.id.chapterListText:
                     Intent i=new Intent();
                     i.setClass(mActivity,BookIndexListActivity.class);
-                    i.putExtra("bookId",onlineBookItem.getBookfinger());
+                    i.putExtra("bookItem",onlineBookItem);
                     startActivity(i);
                     break;
             }

@@ -3,8 +3,12 @@ package com.szborqs.mybook.db;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 
 import com.szborqs.mybook.main.library.model.MyBookItem;
+import com.szborqs.mybook.util.SharedMethod;
+
+import java.util.List;
 
 
 /**
@@ -46,8 +50,38 @@ public class MyBookManager {
         }catch(Exception e){
             e.printStackTrace();
         }
-
         return influencesRows;
+    }
+
+    public boolean isBookExist(String bookId){
+        if(SharedMethod.isEmptyString(bookId)){
+            return false;
+        }
+        SQLiteTemplate st=SQLiteTemplate.getInstance(manager);
+        return st.isExistsByField("book_info","book_id",bookId);
+    }
+
+    public List<MyBookItem> getAllBookList(){
+        List<MyBookItem> result=null;
+        SQLiteTemplate st=SQLiteTemplate.getInstance(manager);
+        SQLiteTemplate.RowMapper<MyBookItem> rowMapper=new SQLiteTemplate.RowMapper<MyBookItem>() {
+            @Override
+            public MyBookItem mapRow(Cursor cursor, int index) {
+                MyBookItem item=new MyBookItem();
+                item.setBookId(cursor.getString(cursor.getColumnIndex("book_id")));
+                item.setCreateTime(cursor.getString(cursor.getColumnIndex("create_time")));
+                item.setBookName(cursor.getString(cursor.getColumnIndex("book_name")));
+                item.setImport(cursor.getString(cursor.getColumnIndex("is_import")).equals("1")?true:false);
+                item.setBookCover(cursor.getString(cursor.getColumnIndex("book_cover")));
+                item.setBookAuthor(cursor.getString(cursor.getColumnIndex("book_author")));
+                item.setCurChapterId(cursor.getString(cursor.getColumnIndex("cur_chapter_id")));
+                item.setCurPosition(cursor.getInt(cursor.getColumnIndex("position")));
+                return item;
+            }
+        };
+        String sql="select book_id,book_name,create_time,book_cover,book_author,cur_chapter_id,position,is_import from book_info order by create_time desc";
+        result=st.queryForList(rowMapper,sql,null);
+        return result;
     }
 
 /*    public List<SendMessageItem> getChatListByFriendId(String friendId, int pageNum, int pageSize){

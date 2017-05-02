@@ -6,10 +6,12 @@ import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 import android.widget.TextView;
 
+import com.szborqs.mybook.db.MyBookManager;
 import com.szborqs.mybook.main.library.view.BookLibraryFragment;
 import com.szborqs.mybook.main.me.view.MeFragment;
 import com.szborqs.mybook.main.shelf.view.BookShelfFragment;
 import com.szborqs.mybook.service.MyService;
+import com.szborqs.mybook.util.BookLog;
 
 import java.util.ArrayList;
 import java.util.List;

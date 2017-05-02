@@ -10,6 +10,7 @@ import com.szborqs.mybook.BaseItem;
 import com.szborqs.mybook.R;
 import com.szborqs.mybook.config.ActionConfigs;
 import com.szborqs.mybook.custom.PullDownLoadListView;
+import com.szborqs.mybook.db.MyBookManager;
 import com.szborqs.mybook.main.library.adapter.BookIndexListAdapter;
 import com.szborqs.mybook.main.library.adapter.OnlineBookListAdapter;
 import com.szborqs.mybook.main.library.model.ChapterItem;
@@ -17,6 +18,7 @@ import com.szborqs.mybook.main.library.model.OnlineBookItem;
 import com.szborqs.mybook.nohttp.CallServer;
 import com.szborqs.mybook.nohttp.HttpListener;
 import com.szborqs.mybook.util.BookLog;
+import com.szborqs.mybook.util.FileUtil;
 import com.szborqs.mybook.util.SharedMethod;
 import com.yolanda.nohttp.NoHttp;
 import com.yolanda.nohttp.RequestMethod;
@@ -34,7 +36,8 @@ public class BookIndexListActivity extends BaseActivity {
     private BookIndexListAdapter mAdapter;
     private List<BaseItem> bookIndexList;
     private static final int GET_LIST_DATA = 100;
-    private String bookId;
+    private static final int GET_CHAPTER_CONTENT = 101;
+    private OnlineBookItem onlineBookItem;;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,7 +46,7 @@ public class BookIndexListActivity extends BaseActivity {
     }
 
     private void initView() {
-        bookId=getIntent().getStringExtra("bookId");
+        onlineBookItem=(OnlineBookItem)getIntent().getSerializableExtra("bookItem");
         mListview=(PullDownLoadListView)findViewById(R.id.mListview);
         bookIndexList=new ArrayList<BaseItem>();
         mAdapter=new BookIndexListAdapter(mActivity);
@@ -55,16 +58,40 @@ public class BookIndexListActivity extends BaseActivity {
                 getListData();
             }
         });
+        mListview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                if(position>0){
+                    boolean tag=MyBookManager.getInstance(mActivity).isBookExist(onlineBookItem.getBookfinger());
+                    if(!tag){
+                        onlineBookItem.insertIntoDatabase(mActivity);
+                    }
+                    ChapterItem item=(ChapterItem)bookIndexList.get(position-1);
+                    if(FileUtil.isChapterFileExsit(onlineBookItem.getBookfinger(),item.getChapterId())){
+
+                    }else{
+                        getChapterContent(item);
+                    }
+
+                }
+            }
+        });
         getListData();
     }
 
     private void getListData() {
-        if(SharedMethod.isEmptyString(bookId)){
+        if(onlineBookItem==null){
             return;
         }
-        String url = ActionConfigs.GET_CHAPTER_LIST+bookId+"?p=1";
+        String url = ActionConfigs.GET_CHAPTER_LIST+onlineBookItem.getBookfinger()+"?p=1";
         Request<String> request = NoHttp.createStringRequest(url, RequestMethod.GET);
         CallServer.getRequestInstance().add(mActivity, GET_LIST_DATA, request, mHttpListener, true, true);
+    }
+
+    private void getChapterContent(ChapterItem item) {
+        String url = ActionConfigs.GET_CHAPTER_CONTENT+item.getChapterId();
+        Request<String> request = NoHttp.createStringRequest(url, RequestMethod.GET);
+        CallServer.getRequestInstance().add(mActivity, GET_CHAPTER_CONTENT, request, mHttpListener, true, true);
     }
 
 
@@ -107,6 +134,22 @@ public class BookIndexListActivity extends BaseActivity {
                     }
                     mAdapter.notifyDataSetChanged();
                     mListview.onRefreshComplete();
+                    break;
+                case GET_CHAPTER_CONTENT://获取列表数据
+                    if(code!=404 && jsonObject!=null){
+                        Iterator<String> keys=jsonObject.keys();
+                        if(keys.hasNext()){
+                            String key=keys.next();
+                            try{
+                                JSONObject subObject = jsonObject.getJSONObject(key);
+                                String content=subObject.optString("content");
+                                String chapterId=subObject.optString("id");
+                                FileUtil.saveChapterContent(onlineBookItem.getBookfinger(),chapterId,content);
+                            }catch(Exception e){
+                                e.printStackTrace();
+                            }
+                        }
+                    }
                     break;
 
 

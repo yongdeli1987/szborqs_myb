@@ -36,6 +36,10 @@ public class Constant {
      * 启动图片
      */
     public static final String START_IMG_DIR = "startpic/";
+    /**
+     * 书籍
+     */
+    public static final String BOOK_DIR = "books/";
 
 
 

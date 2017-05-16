@@ -21,7 +21,7 @@ public class MyBookItem implements BaseItem {
     private boolean isImport;
     private String curChapterId;
     private String createTime;
-    private int curPosition;
+    private int curChapterPosition;
 
     public MyBookItem(){
 
@@ -75,12 +75,12 @@ public class MyBookItem implements BaseItem {
         this.curChapterId = curChapterId;
     }
 
-    public int getCurPosition() {
-        return curPosition;
+    public int getCurChapterPosition() {
+        return curChapterPosition;
     }
 
-    public void setCurPosition(int curPosition) {
-        this.curPosition = curPosition;
+    public void setCurChapterPosition(int curChapterPosition) {
+        this.curChapterPosition = curChapterPosition;
     }
 
     public boolean isImport() {

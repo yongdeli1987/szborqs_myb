@@ -155,7 +155,6 @@ public class SQLiteTemplate {
         sql.append("SELECT COUNT(*) FROM ").append(table).append(" WHERE ")
                 .append(field).append(" =?");
         int count = getCount(sql.toString(), new String[] {value});
-
         return count>0;
     }
 

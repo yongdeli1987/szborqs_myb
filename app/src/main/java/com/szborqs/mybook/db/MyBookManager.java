@@ -5,7 +5,9 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 
+import com.szborqs.mybook.main.library.model.ChapterItem;
 import com.szborqs.mybook.main.library.model.MyBookItem;
+import com.szborqs.mybook.util.BookLog;
 import com.szborqs.mybook.util.SharedMethod;
 
 import java.util.List;
@@ -35,23 +37,48 @@ public class MyBookManager {
 
     public long saveBookItem(MyBookItem item){
         long influencesRows = -1;
+        String bookId=item.getBookId();
         ContentValues contentValues = new ContentValues();
-        contentValues.put("book_id", item.getBookId());
+        contentValues.put("book_id", bookId);
         contentValues.put("book_name", item.getBookName());
         contentValues.put("book_author", item.getBookAuthor());
         contentValues.put("book_cover", item.getBookCover());
         contentValues.put("create_time", item.getCreateTime());
         contentValues.put("cur_chapter_id", item.getCurChapterId());
-        contentValues.put("position", item.getCurPosition());
+        contentValues.put("position", item.getCurChapterPosition());
         contentValues.put("is_import", item.isImport()?"1":"0");
-        try{
-            SQLiteTemplate st=SQLiteTemplate.getInstance(manager);
+        boolean tag=isBookExist(bookId);
+        BookLog.e(bookId+" isBookExist:"+tag);
+        SQLiteTemplate st=SQLiteTemplate.getInstance(manager);
+        if(tag){
+            influencesRows=st.update("book_info",contentValues,"book_id = ?",new String[]{bookId});
+        }else{
             influencesRows=st.insert("book_info",contentValues);
-        }catch(Exception e){
-            e.printStackTrace();
         }
         return influencesRows;
     }
+
+    public long saveChapterItem(ChapterItem item){
+        long influencesRows = -1;
+        String bookId=item.getBookId();
+        String chapterId=item.getChapterId();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("book_id", item.getBookId());
+        contentValues.put("chapter_id", chapterId);
+        contentValues.put("chapter_name", item.getChapterName());
+        contentValues.put("chapter_index", item.getIndex());
+        contentValues.put("chapter_size", item.getSize());
+        boolean tag=isChapterExist(item);
+        BookLog.e(chapterId+" isChapterExist:"+tag);
+        SQLiteTemplate st=SQLiteTemplate.getInstance(manager);
+        if(tag){
+            influencesRows=st.update("chapter_info",contentValues,"book_id = ? and chapter_id = ?",new String[]{bookId,chapterId});
+        }else{
+            influencesRows=st.insert("chapter_info",contentValues);
+        }
+        return influencesRows;
+    }
+
 
     public boolean isBookExist(String bookId){
         if(SharedMethod.isEmptyString(bookId)){
@@ -59,6 +86,19 @@ public class MyBookManager {
         }
         SQLiteTemplate st=SQLiteTemplate.getInstance(manager);
         return st.isExistsByField("book_info","book_id",bookId);
+    }
+
+    public boolean isChapterExist(ChapterItem item){
+        if(item==null){
+            return false;
+        }
+        String bookId=item.getBookId();
+        String chapterId=item.getChapterId();
+        String sql="SELECT COUNT(*) FROM chapter_info WHERE book_id = ? and chapter_id = ?";
+        String[] args=new String[]{bookId,chapterId};
+        SQLiteTemplate st=SQLiteTemplate.getInstance(manager);
+        int count= st.getCount(sql,args);
+        return count>0;
     }
 
     public List<MyBookItem> getAllBookList(){
@@ -75,7 +115,7 @@ public class MyBookManager {
                 item.setBookCover(cursor.getString(cursor.getColumnIndex("book_cover")));
                 item.setBookAuthor(cursor.getString(cursor.getColumnIndex("book_author")));
                 item.setCurChapterId(cursor.getString(cursor.getColumnIndex("cur_chapter_id")));
-                item.setCurPosition(cursor.getInt(cursor.getColumnIndex("position")));
+                item.setCurChapterPosition(cursor.getInt(cursor.getColumnIndex("position")));
                 return item;
             }
         };
@@ -84,66 +124,7 @@ public class MyBookManager {
         return result;
     }
 
-/*    public List<SendMessageItem> getChatListByFriendId(String friendId, int pageNum, int pageSize){
-        List<SendMessageItem> result=null;
-        int fromIndex = (pageNum - 1) * pageSize;
-        SQLiteTemplate st=SQLiteTemplate.getInstance(manager);
-        SQLiteTemplate.RowMapper<SendMessageItem> rowMapper=new SQLiteTemplate.RowMapper<SendMessageItem>() {
-            @Override
-            public SendMessageItem mapRow(Cursor cursor, int index) {
-                SendMessageItem item=new SendMessageItem();
-                item.setId(cursor.getInt(cursor.getColumnIndex("_id")));
-                item.setMsgId(cursor.getString(cursor.getColumnIndex("msg_id")));
-                item.setContent(cursor.getString(cursor.getColumnIndex("msg_content")));
-                item.setParam(cursor.getString(cursor.getColumnIndex("msg_param")));
-                item.setTimeString(cursor.getString(cursor.getColumnIndex("msg_time")));
-                item.setMyUserId(cursor.getString(cursor.getColumnIndex("my_user_id")));
-                item.setFriendUserId(cursor.getString(cursor.getColumnIndex("friend_id")));
-                item.setFriendName(cursor.getString(cursor.getColumnIndex("person_name")));
-                item.setFriendHeadUrl(cursor.getString(cursor.getColumnIndex("person_url")));
-                item.setMsgCategory(cursor.getInt(cursor.getColumnIndex("msg_category")));
-                item.setMsgType(cursor.getInt(cursor.getColumnIndex("msg_type")));
-                item.setMsgStatus(cursor.getInt(cursor.getColumnIndex("msg_status")));
-                item.setDirection(cursor.getInt(cursor.getColumnIndex("msg_direction")));
-                return item;
-            }
-        };
-        String sql="select m._id, m.msg_id, m.msg_content,m.msg_param,m.msg_time,m.my_user_id,m.friend_id,m.msg_category,m.msg_type,m.msg_status,m.msg_direction,i.person_name,i.person_url from im_msg_info m left join im_friend_info i on m.friend_id = i.person_id where m.my_user_id=? and m.friend_id=? and m.msg_category = ? order by m._id desc limit ? , ?";
-        result=st.queryForList(rowMapper,sql,new String[] { CommonPrefs.getCurentUser(), friendId, "" + SendMessageItem.CATEGORY_IM,
-                "" + fromIndex, "" + pageSize });
-        CarLog.e("getChatListByFriendId pageNum:"+pageNum+" pageSize:"+pageSize+" result:"+result.size());
-        return result;
-    }*/
 
-/*    public List<SendMessageItem> getPickupHistory(int pageNum, int pageSize){
-        List<SendMessageItem> result=null;
-        int fromIndex = (pageNum - 1) * pageSize;
-        SQLiteTemplate st=SQLiteTemplate.getInstance(manager);
-        SQLiteTemplate.RowMapper<SendMessageItem> rowMapper=new SQLiteTemplate.RowMapper<SendMessageItem>() {
-            @Override
-            public SendMessageItem mapRow(Cursor cursor, int index) {
-                SendMessageItem item=new SendMessageItem();
-                item.setId(cursor.getInt(cursor.getColumnIndex("_id")));
-                item.setMsgId(cursor.getString(cursor.getColumnIndex("msg_id")));
-                item.setContent(cursor.getString(cursor.getColumnIndex("msg_content")));
-                item.setParam(cursor.getString(cursor.getColumnIndex("msg_param")));
-                item.setTimeString(cursor.getString(cursor.getColumnIndex("msg_time")));
-                item.setMyUserId(cursor.getString(cursor.getColumnIndex("my_user_id")));
-                item.setFriendUserId(cursor.getString(cursor.getColumnIndex("friend_id")));
-                item.setFriendName(cursor.getString(cursor.getColumnIndex("person_name")));
-                item.setFriendHeadUrl(cursor.getString(cursor.getColumnIndex("person_url")));
-                item.setMsgCategory(cursor.getInt(cursor.getColumnIndex("msg_category")));
-                item.setMsgType(cursor.getInt(cursor.getColumnIndex("msg_type")));
-                item.setMsgStatus(cursor.getInt(cursor.getColumnIndex("msg_status")));
-                item.setDirection(cursor.getInt(cursor.getColumnIndex("msg_direction")));
-                return item;
-            }
-        };
-        String sql="select m._id, m.msg_id, m.msg_content,m.msg_param,m.msg_time,m.my_user_id,m.friend_id,m.msg_category,m.msg_type,m.msg_status,m.msg_direction,i.person_name,i.person_url from im_msg_info m left join im_friend_info i on m.friend_id = i.person_id where m.my_user_id=? and m.msg_category = ? and m.msg_type = ? order by m._id desc limit ? , ?";
-        result=st.queryForList(rowMapper,sql,new String[] { CommonPrefs.getCurentUser(), "" + SendMessageItem.CATEGORY_PUSH,"" + SendMessageItem.TYPE_FRIEND_LOCATION,
-                "" + fromIndex, "" + pageSize });
-        return result;
-    }*/
 
     /*public void updateMsgStatusById(String msgId,int status){
         ContentValues contentValues = new ContentValues();

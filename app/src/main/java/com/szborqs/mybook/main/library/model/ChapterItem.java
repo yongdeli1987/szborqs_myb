@@ -13,10 +13,11 @@ import org.json.JSONObject;
 
 public class ChapterItem implements BaseItem {
 
-
+    private String bookId;
     private String chapterId;
     private String chapterName;
     private int index;
+    private int size;
 
     public ChapterItem(){
 
@@ -53,5 +54,21 @@ public class ChapterItem implements BaseItem {
 
     public void setIndex(int index) {
         this.index = index;
+    }
+
+    public String getBookId() {
+        return bookId;
+    }
+
+    public void setBookId(String bookId) {
+        this.bookId = bookId;
+    }
+
+    public int getSize() {
+        return size;
+    }
+
+    public void setSize(int size) {
+        this.size = size;
     }
 }

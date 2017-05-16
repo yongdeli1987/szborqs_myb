@@ -67,6 +67,11 @@ public class BookIndexListActivity extends BaseActivity {
                         onlineBookItem.insertIntoDatabase(mActivity);
                     }
                     ChapterItem item=(ChapterItem)bookIndexList.get(position-1);
+                    if(!MyBookManager.getInstance(mActivity).isChapterExist(item)){
+                        for(BaseItem tempItem:bookIndexList){
+                            MyBookManager.getInstance(mActivity).saveChapterItem((ChapterItem)tempItem);
+                        }
+                    }
                     if(FileUtil.isChapterFileExsit(onlineBookItem.getBookfinger(),item.getChapterId())){
 
                     }else{
@@ -77,6 +82,15 @@ public class BookIndexListActivity extends BaseActivity {
             }
         });
         getListData();
+    }
+
+    private void insertIndex(){
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+
+            }
+        }).start();
     }
 
     private void getListData() {
@@ -125,6 +139,7 @@ public class BookIndexListActivity extends BaseActivity {
                                 JSONObject subObject = jsonObject.getJSONObject(key);
                                 ChapterItem item=new ChapterItem(subObject);
                                 item.setIndex(index);
+                                item.setBookId(onlineBookItem.getBookfinger());
                                 bookIndexList.add(item);
                             }catch(Exception e){
                                 e.printStackTrace();
